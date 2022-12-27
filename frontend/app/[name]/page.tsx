@@ -23,7 +23,7 @@ const ImageInfo = () => {
   return (
     image === undefined ? <p className='text-red-600 text-4xl text-center'>Image Not Found</p>
     : <>
-      <div className='w-11/12 md:w-3/5 mx-auto flex flex-col justify-center gap-y-8 mb-24'>
+      <div className='w-11/12 md:w-3/4 mx-auto flex flex-col justify-center gap-y-8 mb-24'>
         <section>
           <h2 className='text-center'>{image.name}</h2>
         </section>
