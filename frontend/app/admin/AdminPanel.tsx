@@ -57,8 +57,6 @@ const AdminPanel = () => {
   const [ deletedOption, setDeletedOption ] = useState<any | null>(null)
   const [ url, setUrl ] = useState('')
 
-  console.log(createdPath)
-
   return (
     <>
       <div className='grid md:grid-cols-2 sm:w-3/4 mx-auto gap-8 p-4'>
@@ -106,7 +104,7 @@ const AdminPanel = () => {
         open={createdPath !== null}
         onClose={() => setCreatedPath(null)}
         header={createdPath?.split('/').at(-1) || ''}
-        url={createdPath || ''}
+        url={createdPath?.replaceAll('_', '-') || ''}
       />
     </>
   )

@@ -63,7 +63,6 @@ const ImageForm = ({ images, onClose }: { images: File[] | null, onClose?: () =>
     // Check if any input is empty    
     if(Object.values(values).some(value => !value)) return
     
-    console.log(values)
     // Upload images to Cloudinary
     const { status: imageStatus, data: imageData } = await uploadImage(values.image, 'astrophotography-image')
     const { status: annotationStatus, data: annotationData } = await uploadImage(values.annotation!, 'astrophotography-annotation')
