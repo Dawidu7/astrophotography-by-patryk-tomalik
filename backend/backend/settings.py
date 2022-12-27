@@ -32,9 +32,9 @@ ALLOWED_HOSTS = ['*']
 # Application definition
 
 INSTALLED_APPS = [
+    'corsheaders',
     'rest_framework',
     'rest_framework_simplejwt',
-    'corsheaders',
     
     'images',
     'calculator',
@@ -144,10 +144,10 @@ STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 
-CORS_ALLOWED_ORIGINS = [
+CORS_ORIGIN_WHITELIST = [
+    'https://astrophotography-by-patryk-tomalik.up.railway.app'
     'http://127.0.0.1:3000',
     'http://localhost:3000',
-    'https://astrophotography-by-patryk-tomalik.up.railway.app'
 ]
 
 
