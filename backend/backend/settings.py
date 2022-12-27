@@ -148,6 +148,8 @@ CORS_ALLOW_ALL_ORIGINS = True
 
 CORS_ALLOW_HEADERS = ['*']
 
+CSRF_TRUSTED_ORIGINS = ['https://astrophotography-by-patryk-tomalik.up.railway.app']
+
 
 REST_FRAMEWORK = {
     'DEFAULT_AUTHENTICATION_CLASSES': (
