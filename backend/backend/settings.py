@@ -144,10 +144,10 @@ STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 
-CORS_ORIGIN_WHITELIST = [
-    'https://astrophotography-by-patryk-tomalik.up.railway.app'
-    'http://127.0.0.1:3000',
-    'http://localhost:3000',
+CORS_ALLOW_ALL_ORIGINS = True
+
+CORS_TRUSTED_ORIGINS = [
+    'https://astrophotography-by-patryk-tomalik.up.railway.app',
 ]
 
 
