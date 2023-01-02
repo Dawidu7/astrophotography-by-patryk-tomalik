@@ -4,14 +4,14 @@ import { use, useState } from 'react'
 
 import axios from 'axios'
 
-import SearchSelect from './SearchSelect'
+import Select from './Select'
 import ManyAutoComplete from './ManyAutoComplete'
 
-import { getFormErrors, uploadImage } from '../utils'
+import { uploadImage } from '../utils'
 
 
 interface ImageData {
-  image: File,
+  image: File | null | undefined,
   name: string,
   optic: string,
   camera: string,
@@ -38,19 +38,19 @@ const getData = async () => await Promise.all([
 
 const queryData = getData()
 
-const ImageForm = ({ images, onClose }: { images: File[] | null, onClose?: () => void }) => {
+const ImageForm = ({ images, onClose }: { images?: File[] | null, onClose?: () => void }) => {
   const options = use(queryData)
 
-  const image = images![0]
+  const image = images ? images[0] : null
 
   const [ values, setValues ] = useState<ImageData>({
     image: image,
-    name: image.name.split('.').slice(0, -1).join(''),
+    name: image ? image?.name.split('.').slice(0, -1).join('') : '',
     optic: '',
     camera: '',
     mount: '',
     filters: '',
-    date: new Date(image.lastModified).toLocaleDateString('en-CA'),
+    date: image ? new Date(image.lastModified).toLocaleDateString('en-CA') : '',
     sqml: '',
     exposure_details: '', 
     acquisition: '', 
@@ -64,7 +64,7 @@ const ImageForm = ({ images, onClose }: { images: File[] | null, onClose?: () =>
     if(Object.values(values).some(value => !value)) return
     
     // Upload images to Cloudinary
-    const { status: imageStatus, data: imageData } = await uploadImage(values.image, 'astrophotography-image')
+    const { status: imageStatus, data: imageData } = await uploadImage(values.image!, 'astrophotography-image')
     const { status: annotationStatus, data: annotationData } = await uploadImage(values.annotation!, 'astrophotography-annotation')
 
     if(imageStatus === 200 && annotationStatus === 200) {
@@ -84,7 +84,10 @@ const ImageForm = ({ images, onClose }: { images: File[] | null, onClose?: () =>
     <>
       <h2 className='mb-4'>Create Image</h2>
       <form onSubmit={e => { e.preventDefault(); submitImages() }} className='gap-y-4'>
-        <p>{image.name}</p>
+        {image
+          ? <p>{image.name}</p>
+          : <input type='file' name='image' placeholder='Image' onChange={e => setValues(prev => ({ ...prev, image: e.target.files![0] }))} />
+        }
         <input 
           type='text' 
           name='name' 
@@ -92,17 +95,17 @@ const ImageForm = ({ images, onClose }: { images: File[] | null, onClose?: () =>
           value={values.name} 
           onChange={e => setValues(prev => ({ ...prev, name: e.target.value }))} 
         />
-        <SearchSelect 
+        <Select 
           options={options[0]}
           valueName={values.optic || 'Optic'} 
           setValue={value => setValues(prev => ({ ...prev, optic: value?.name || '' }))}
         />
-        <SearchSelect 
+        <Select 
           options={options[1]}
           valueName={values.camera || 'Camera'} 
           setValue={value => setValues(prev => ({ ...prev, camera: value?.name || '' }))}
         />
-        <SearchSelect 
+        <Select 
           options={options[2]}
           valueName={values.mount || 'Mount'} 
           setValue={value => setValues(prev => ({ ...prev, mount: value?.name || '' }))}
@@ -131,10 +134,10 @@ const ImageForm = ({ images, onClose }: { images: File[] | null, onClose?: () =>
           options={options[4]} 
           setValue={value => setValues(prev => ({ ...prev, exposure_details: value }))} 
         />
-        <SearchSelect 
+        <ManyAutoComplete 
           options={options[5]}
-          valueName={values.acquisition || 'Acquisition'} 
-          setValue={value => setValues(prev => ({ ...prev, acquisition: value?.name || '' }))}
+          placeholder='Acquisition'
+          setValue={value => setValues(prev => ({ ...prev, acquisition: value }))}
         />
         <ManyAutoComplete 
           placeholder='Processing' 

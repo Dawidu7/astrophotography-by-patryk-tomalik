@@ -2,7 +2,7 @@
 
 import { use, useState } from 'react'
 
-import { AddModal, ConfirmModal } from '../../components'
+import { AddModal, ConfirmModal, Modal, ImageForm } from '../../components'
 
 import { toTitle } from '../../utils'
 
@@ -50,6 +50,9 @@ const queryData = getData()
 const AdminPanel = () => {
   const data = use(queryData)
 
+  // Image Modal
+  const [ imageModalVisible, setImageModalVisible ] = useState(false)
+
   // Create Modal
   const [ createdPath, setCreatedPath ] = useState<string | null>(null)
 
@@ -59,7 +62,7 @@ const AdminPanel = () => {
 
   return (
     <>
-      <div className='grid md:grid-cols-2 sm:w-3/4 mx-auto gap-8 p-4'>
+      <div className='grid md:grid-cols-2 sm:w-3/4 mx-auto gap-8 p-4 pb-20'>
         {Object.entries(data).map(([ page, options ]) => (
           <div key={page} className='bg-light-dark p-4 rounded-xl shadow-xl'>
             <h3 className='mb-4'>{toTitle(page)}</h3>
@@ -68,14 +71,15 @@ const AdminPanel = () => {
                 <div key={header}>
                   <h5 className='flex justify-between'>
                     {toTitle(header)}
-                    {header !== 'images' && 
-                      <button 
-                        className='p-0 pr-2 border-0' 
-                        onClick={() => setCreatedPath(`${page}/${page === 'generator' ? '' : header}`)}
-                      >
-                        +
-                      </button>
-                    }
+                    <button 
+                      className='p-0 pr-2 border-0' 
+                      onClick={header === 'image'
+                        ? () => setCreatedPath(`${page}/${page === 'generator' ? '' : header}`)
+                        : () => setImageModalVisible(true)
+                      }
+                    >
+                      +
+                    </button>
                   </h5>
                   <ul>
                     {opt.map((o: any) => (
@@ -94,6 +98,11 @@ const AdminPanel = () => {
           </div>
         ))}
       </div>
+      <Modal 
+        open={imageModalVisible} 
+        onClose={() => setImageModalVisible(false)} 
+        content={<ImageForm onClose={() => setImageModalVisible(false)} />} 
+      />
       <ConfirmModal 
         open={deletedOption !== null} 
         onClose={() => setDeletedOption(null)} 
