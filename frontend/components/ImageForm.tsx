@@ -59,18 +59,18 @@ const ImageForm = ({ images, onClose }: { images?: File[] | null, onClose?: () =
   })
 
   const submitImages = async () => {
-    // Check if any input is empty    
-    if(Object.values(values).some(value => !value)) return
-    
     // Upload images to Cloudinary
     const { status: imageStatus, data: imageData } = await uploadImage(values.image!, 'astrophotography-image')
-    const { status: annotationStatus, data: annotationData } = await uploadImage(values.annotation!, 'astrophotography-annotation')
 
-    if(imageStatus === 200 && annotationStatus === 200) {
+    if(values.annotation) {
+      var { status: annotationStatus, data: annotationData } = await uploadImage(values.annotation, 'astrophotography-annotation')
+    }
+
+    if(imageStatus === 200) {
       const response = await axios.post(`${process.env.BACKEND_URL}/images/`, {
         image_url: imageData,
         ...Object.fromEntries(Object.entries(values).slice(1, -1)),
-        annotation_url: annotationData
+        annotation_url: values.annotation && annotationStatus === 200 ? annotationData : null
       })
 
       if(response.status === 201) {
