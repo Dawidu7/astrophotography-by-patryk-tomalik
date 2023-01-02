@@ -73,7 +73,7 @@ const AdminPanel = () => {
                     {toTitle(header)}
                     <button 
                       className='p-0 pr-2 border-0' 
-                      onClick={header === 'images'
+                      onClick={header !== 'images'
                         ? () => setCreatedPath(`${page}/${page === 'generator' ? '' : header}`)
                         : () => setImageModalVisible(true)
                       }
