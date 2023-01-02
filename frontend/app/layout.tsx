@@ -9,7 +9,7 @@ const RootLayout = ({ children }: { children: React.ReactNode }) => {
   return (
     <html>
       <head />
-      <body className='bg-dark text-[#c0c0c0]'>
+      <body className='bg-dark text-[#717171]'>
         <AuthProvider>
           <Navbar />
           {children}
