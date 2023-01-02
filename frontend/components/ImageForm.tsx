@@ -136,11 +136,6 @@ const ImageForm = ({ images, onClose }: { images?: File[] | null, onClose?: () =
           onChange={e => setValues(prev => ({ ...prev, exposure_details: e.target.value }))} 
         />
         <ManyAutoComplete 
-          placeholder='Exposure Details' 
-          options={options[4]} 
-          setValue={value => setValues(prev => ({ ...prev, exposure_details: value }))} 
-        />
-        <ManyAutoComplete 
           options={options[4]}
           placeholder='Acquisition'
           setValue={value => setValues(prev => ({ ...prev, acquisition: value }))}
