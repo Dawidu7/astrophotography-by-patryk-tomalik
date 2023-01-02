@@ -14,7 +14,6 @@ const getData = async () => {
     fetch(`${process.env.BACKEND_URL}/images/cameras`).then(response => response.json()),
     fetch(`${process.env.BACKEND_URL}/images/mounts`).then(response => response.json()),
     fetch(`${process.env.BACKEND_URL}/images/filters`).then(response => response.json()),
-    fetch(`${process.env.BACKEND_URL}/images/exposure-details`).then(response => response.json()),
     fetch(`${process.env.BACKEND_URL}/images/acquisitions`).then(response => response.json()),
     fetch(`${process.env.BACKEND_URL}/images/processings`).then(response => response.json())
   ])
@@ -32,9 +31,8 @@ const getData = async () => {
       cameras: imagesData[2],
       mounts: imagesData[3],
       filters: imagesData[4],
-      exposure_details: imagesData[5],
-      acquisitions: imagesData[6],
-      processings: imagesData[7]
+      acquisitions: imagesData[5],
+      processings: imagesData[6]
     },
     calculator: {
       cameras: calculatorData[0],

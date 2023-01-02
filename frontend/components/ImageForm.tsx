@@ -31,7 +31,6 @@ const getData = async () => await Promise.all([
   fetch(`${process.env.BACKEND_URL}/images/cameras`).then(response => response.json()),
   fetch(`${process.env.BACKEND_URL}/images/mounts`).then(response => response.json()),
   fetch(`${process.env.BACKEND_URL}/images/filters`).then(response => response.json()),
-  fetch(`${process.env.BACKEND_URL}/images/exposure-details`).then(response => response.json()),
   fetch(`${process.env.BACKEND_URL}/images/acquisitions`).then(response => response.json()),
   fetch(`${process.env.BACKEND_URL}/images/processings`).then(response => response.json())
 ])
@@ -129,19 +128,26 @@ const ImageForm = ({ images, onClose }: { images?: File[] | null, onClose?: () =
           value={values.sqml} 
           onChange={e => setValues(prev => ({ ...prev, sqml: e.target.value }))} 
         />
+        <input 
+          type='text' 
+          name='exposure_details' 
+          placeholder='Exposure Details' 
+          value={values.exposure_details} 
+          onChange={e => setValues(prev => ({ ...prev, exposure_details: e.target.value }))} 
+        />
         <ManyAutoComplete 
           placeholder='Exposure Details' 
           options={options[4]} 
           setValue={value => setValues(prev => ({ ...prev, exposure_details: value }))} 
         />
         <ManyAutoComplete 
-          options={options[5]}
+          options={options[4]}
           placeholder='Acquisition'
           setValue={value => setValues(prev => ({ ...prev, acquisition: value }))}
         />
         <ManyAutoComplete 
           placeholder='Processing' 
-          options={options[6]} 
+          options={options[5]} 
           setValue={value => setValues(prev => ({ ...prev, processing: value }))} 
         />
         <textarea 
