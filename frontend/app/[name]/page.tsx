@@ -47,7 +47,7 @@ const ImageInfo = () => {
               </div>
             ))}
           </div>
-          <div className='pl-4 flex flex-col justify-between gap-y-2 w-1/2 border-l border-dark'>
+          <div className='pl-4 flex flex-col justify-between gap-y-2 w-1/2 border-l-2 border-dark'>
             <p className='break-words'>{image.info}</p>
             {image.annotation_url &&
               <div className="relative aspect-video">
