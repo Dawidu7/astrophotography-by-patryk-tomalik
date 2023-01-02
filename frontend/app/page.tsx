@@ -29,7 +29,6 @@ const Home = () => {
       </div>
       <Modal 
         open={modalVisible} 
-        onClose={() => setModalVisible(false)} 
         content={<ImageForm images={droppedImages} onClose={() => setModalVisible(false)} />} 
       />
     </>

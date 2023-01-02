@@ -3,18 +3,18 @@ from django.db import models
 # Create your models here.
 class Image(models.Model):
     image_url = models.CharField(max_length=255)
-    name = models.CharField(max_length=64, unique=True)
-    optic = models.CharField(max_length=64)
-    camera = models.CharField(max_length=64)
-    mount = models.CharField(max_length=64)
-    filters = models.CharField(max_length=64)
-    date = models.DateField()
-    sqml = models.CharField(max_length=64)
-    exposure_details = models.CharField(max_length=64)
-    acquisition = models.CharField(max_length=64)
-    processing = models.CharField(max_length=64)
-    info = models.CharField(max_length=2000)
-    annotation_url = models.CharField(max_length=255)
+    name = models.CharField(max_length=64, unique=True, blank=True)
+    optic = models.CharField(max_length=64, blank=True)
+    camera = models.CharField(max_length=64, blank=True)
+    mount = models.CharField(max_length=64, blank=True)
+    filters = models.CharField(max_length=64, blank=True)
+    date = models.DateField(blank=True)
+    sqml = models.CharField(max_length=64, blank=True)
+    exposure_details = models.CharField(max_length=64, blank=True)
+    acquisition = models.CharField(max_length=64, blank=True)
+    processing = models.CharField(max_length=64, blank=True)
+    info = models.CharField(max_length=2000, blank=True)
+    annotation_url = models.CharField(max_length=255, blank=True)
 
     def __str__(self):
         return self.name

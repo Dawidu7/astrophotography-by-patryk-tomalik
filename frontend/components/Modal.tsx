@@ -7,7 +7,7 @@ import { delay } from '../utils'
 
 interface ModalProps {
   open: boolean,
-  onClose: () => void,
+  onClose?: () => void,
   content: ReactElement,
   width?: string,
   padding?: string
@@ -20,6 +20,8 @@ const Modal = ({ open, onClose, content, width, padding }: ModalProps) => {
   useEffect(() => setVisible(open), [open])
 
   useEffect(() => {
+    if(typeof onClose === 'undefined') return
+
     const handleMouseDown = async (e: MouseEvent) => {
       if(modalRef.current?.contains(e.target as HTMLElement) === false) {
         setVisible(false)

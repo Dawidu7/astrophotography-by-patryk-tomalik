@@ -81,7 +81,10 @@ const ImageForm = ({ images, onClose }: { images?: File[] | null, onClose?: () =
 
   return (
     <>
-      <h2 className='mb-4'>Create Image</h2>
+      <h2 className='mb-4 flex justify-between'>
+        <span>Create Image</span>
+        <button className="border-none" onClick={() => onClose!()}>X</button>
+      </h2>
       <form onSubmit={e => { e.preventDefault(); submitImages() }} className='gap-y-4'>
         {image
           ? <p>{image.name}</p>
