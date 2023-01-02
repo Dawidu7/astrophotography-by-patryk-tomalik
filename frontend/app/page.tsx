@@ -14,7 +14,7 @@ const getData = async (): Promise<IImage[]> => await fetch(`${process.env.BACKEN
 const queryData = getData()
 
 const Home = () => {
-  const images = use(queryData)
+  const images = use(queryData).sort(() => Math.random() -.5)
   const [ modalVisible, setModalVisible ] = useState(false)
   const droppedImages = useDrop(['jpg', 'png'])
 
