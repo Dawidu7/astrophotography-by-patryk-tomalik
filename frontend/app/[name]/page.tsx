@@ -20,6 +20,8 @@ const ImageInfo = () => {
   const image = use(queryData).find(({ name }) => pathname === name.toLowerCase().replaceAll(' ', '-'))
   const [ annotation, setAnnotation ] = useState(false)
 
+  console.log(image)
+
   return (
     image === undefined ? <p className='text-red-600 text-4xl text-center'>Image Not Found</p>
     : <>
@@ -38,8 +40,8 @@ const ImageInfo = () => {
         </section>
         <section className='flex'>
           <div className='flex flex-col gap-y-1 w-1/2 pr-4'>
-            {Object.entries(image).slice(3, 12).map(data => (
-              <div key={data[1]} className='flex justify-between'>
+            {Object.entries(image).slice(3, 12).map((data, i) => (
+              <div key={i} className='flex justify-between'>
                 <p>{`${toTitle(data[0])}: `}</p>
                 <p>{data[1]}</p>
               </div>
@@ -47,36 +49,40 @@ const ImageInfo = () => {
           </div>
           <div className='pl-4 flex flex-col justify-between gap-y-2 w-1/2 border-l border-white'>
             <p className='break-words'>{image.info}</p>
+            {image.annotation_url &&
+              <div className="relative aspect-video">
+                <Image 
+                  src={image.annotation_url}
+                  alt={image.name}
+                  fill
+                  sizes='50vw'
+                  className='object-cover rounded-lg hover:cursor-pointer'
+                  onClick={() => setAnnotation(true)}
+                />
+              </div>
+            }
+          </div>
+        </section>
+      </div>
+      {image.annotation_url &&
+        <Modal 
+          open={annotation}
+          onClose={() => setAnnotation(false)}
+          content={
             <div className="relative aspect-video">
               <Image 
                 src={image.annotation_url}
                 alt={image.name}
                 fill
-                sizes='50vw'
-                className='object-cover rounded-lg hover:cursor-pointer'
-                onClick={() => setAnnotation(true)}
+                sizes='75vw'
+                className='object-cover rounded-lg'
               />
             </div>
-          </div>
-        </section>
-      </div>
-      <Modal 
-        open={annotation}
-        onClose={() => setAnnotation(false)}
-        content={
-          <div className="relative aspect-video">
-            <Image 
-              src={image.annotation_url}
-              alt={image.name}
-              fill
-              sizes='75vw'
-              className='object-cover rounded-lg'
-            />
-          </div>
-        }
-        width='w-4/5'
-        padding='p-0'
-      />
+          }
+          width='w-4/5'
+          padding='p-0'
+        />
+      }
     </>
   )
 }

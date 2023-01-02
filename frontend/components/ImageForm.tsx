@@ -62,7 +62,7 @@ const ImageForm = ({ images, onClose }: { images?: File[] | null, onClose?: () =
     // Upload images to Cloudinary
     const { status: imageStatus, data: imageData } = await uploadImage(values.image!, 'astrophotography-image')
 
-    if(values.annotation) {
+    if(values.annotation !== null && values.annotation !== undefined) {
       var { status: annotationStatus, data: annotationData } = await uploadImage(values.annotation, 'astrophotography-annotation')
     }
 
