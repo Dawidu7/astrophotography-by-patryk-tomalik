@@ -23,7 +23,7 @@ urlpatterns = [
     path('images/', include('images.urls')),
     path('calculator/', include('calculator.urls')),
     path('generator/', include('generator.urls')),
-    # path('planner/', include('planner.urls')),
+    path('planner/', include('planner.urls')),
     
     path('auth/get-tokens', TokenObtainPairView.as_view()),
     path('auth/refresh-token', TokenRefreshView.as_view()),
