@@ -48,7 +48,7 @@ const ImageInfo = () => {
           />
         </section>
         <section className='flex'>
-          <div className='flex flex-col gap-y-1 w-1/4 pr-4'>
+          <div className='flex flex-col gap-y-1 w-2/5 pr-4'>
             {Object.entries(image).slice(3, 12).map((data, i) => (
               <div key={i} className='flex justify-between'>
                 <p>{`${toTitle(data[0])}: `}</p>
@@ -56,7 +56,7 @@ const ImageInfo = () => {
               </div>
             ))}
           </div>
-          <div className='pl-4 flex flex-col justify-between gap-y-2 w-3/4 border-l-2 border-dark'>
+          <div className='pl-4 flex flex-col justify-between gap-y-2 w-3/5 border-l-2 border-dark'>
             <p className='break-words'>{image.info}</p>
             {image.annotation_url &&
               <div className={`relative ${horizontal ? 'aspect-video' : 'aspect-[4/5] w-2/3 mx-auto'}`}>
