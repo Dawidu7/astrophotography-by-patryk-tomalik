@@ -12,7 +12,7 @@ class Camera(Option):
     resolution_y = models.IntegerField()
     matrix_x = models.DecimalField(max_digits=3, decimal_places=1)
     matrix_y = models.DecimalField(max_digits=3, decimal_places=1)
-    pixel_size = models.DecimalField(max_digits=4, decimal_places=2)  # 00.00
+    pixel_size = models.DecimalField(max_digits=4, decimal_places=2)
 
     @property
     def resolution(self):
@@ -28,4 +28,4 @@ class Telescope(Option):
     focal_ratio = models.DecimalField(max_digits=3, decimal_places=2)
 
 class FlattReduc(Option):
-    times = models.DecimalField(max_digits=2, decimal_places=1)
+    times = models.DecimalField(max_digits=3, decimal_places=2)
