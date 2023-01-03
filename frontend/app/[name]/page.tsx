@@ -1,12 +1,12 @@
 'use client'
 
-import { use, useState } from 'react'
+import { use, useEffect, useState } from 'react'
 import { usePathname } from 'next/navigation'
 import Image from 'next/image'
 
 import { Modal } from '../../components'
 
-import { toTitle } from '../../utils'
+import { getImageSize, toTitle } from '../../utils'
 
 import { Image as IImage } from '../../interfaces'
 
@@ -19,8 +19,17 @@ const ImageInfo = () => {
   const pathname = usePathname()?.split('/').at(-1)
   const image = use(queryData).find(({ name }) => pathname === name.toLowerCase().replaceAll(' ', '-'))
   const [ annotation, setAnnotation ] = useState(false)
+  const [ horizontal, setHorizontal ] = useState(true)
 
-  console.log(image)
+  useEffect(() => {
+    const getImageRatio = async () => {
+      const isHorizontal = await getImageSize(image?.image_url!, (width, height) => width > height)
+
+      if(isHorizontal === false) setHorizontal(false)
+    }
+
+    getImageRatio()
+  }, [])
 
   return (
     image === undefined ? <p className='text-red-600 text-4xl text-center'>Image Not Found</p>
@@ -29,7 +38,7 @@ const ImageInfo = () => {
         <section>
           <h2 className='text-center'>{image.name}</h2>
         </section>
-        <section className='relative aspect-video'>
+        <section className={`relative ${horizontal ? 'aspect-video' : 'aspect-[4/5] w-2/3 mx-auto'}`}>
           <Image 
             src={image.image_url}
             alt={image.name}
@@ -50,7 +59,7 @@ const ImageInfo = () => {
           <div className='pl-4 flex flex-col justify-between gap-y-2 w-1/2 border-l-2 border-dark'>
             <p className='break-words'>{image.info}</p>
             {image.annotation_url &&
-              <div className="relative aspect-video">
+              <div className={`relative ${horizontal ? 'aspect-video' : 'aspect-[4/5] w-2/3 mx-auto'}`}>
                 <Image 
                   src={image.annotation_url}
                   alt={image.name}
@@ -69,7 +78,7 @@ const ImageInfo = () => {
           open={annotation}
           onClose={() => setAnnotation(false)}
           content={
-            <div className="relative aspect-video">
+            <div className={`relative ${horizontal ? 'aspect-video' : 'aspect-[4/5]'}`}>
               <Image 
                 src={image.annotation_url}
                 alt={image.name}
@@ -79,7 +88,7 @@ const ImageInfo = () => {
               />
             </div>
           }
-          width='w-4/5'
+          width={horizontal ? 'w-4/5' : 'w-1/2'}
           padding='p-0'
         />
       }

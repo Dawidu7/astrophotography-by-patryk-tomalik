@@ -1,6 +1,6 @@
 'use client'
 
-import { use, useEffect, useState } from 'react'
+import { useEffect, useState } from 'react'
 
 import { Image, Modal, ImageForm } from '../components'
 
@@ -9,14 +9,22 @@ import { useDrop } from '../hooks'
 import { Image as IImage } from '../interfaces'
 
 
-const getData = async (): Promise<IImage[]> => await fetch(`${process.env.BACKEND_URL}/images/`).then(response => response.json())
-
-const queryData = getData()
-
 const Home = () => {
-  const images = use(queryData).sort(() => Math.random() -.5)
+  const [ images, setImages ] = useState<IImage[]>([])
   const [ modalVisible, setModalVisible ] = useState(false)
   const droppedImages = useDrop(['jpg', 'png'])
+
+  useEffect(() => {
+    async function getImages() {
+      const images: Promise<IImage[]> = await fetch(`${process.env.BACKEND_URL}/images/`)
+        .then(response => response.json())
+        .then(data => data.sort(() => Math.random() - .5))
+
+      setImages(await images)
+    }
+
+    getImages()
+  }, [])
 
   useEffect(() => { droppedImages!?.length > 0 && setModalVisible(true) }, [droppedImages])
 

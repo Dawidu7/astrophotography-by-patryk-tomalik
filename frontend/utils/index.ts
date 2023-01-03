@@ -1,5 +1,6 @@
 export { default as delay } from './delay'
 export { default as getFormErrors } from './getFormErrors'
+export { default as getImageSize } from './getImageSize'
 export { default as insert } from './insert'
 export { default as isNumeric } from './isNumeric'
 export { default as round } from './round'
