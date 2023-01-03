@@ -25,7 +25,7 @@ class Camera(Option):
 class Telescope(Option):
     focal_length = models.IntegerField()
     diameter = models.IntegerField()
-    focal_ratio = models.DecimalField(max_digits=3, decimal_places=2)
+    focal_ratio = models.DecimalField(max_digits=4, decimal_places=2)
 
 class FlattReduc(Option):
     times = models.DecimalField(max_digits=3, decimal_places=2)
