@@ -46,3 +46,21 @@ export interface GeneratorCatalog {
   name: string,
   value: string
 }
+
+export interface Option {
+  id: number,
+  name: string
+}
+
+export interface RowData {
+  catalog: string,
+  number: string,
+  constellation: string,
+  telescope: string,
+  camera: string,
+  filter: string,
+  ra: string,
+  dec: string,
+  info: string,
+  angle: string
+}
