@@ -71,7 +71,7 @@ const Generator = () => {
           'EndObject=SkyObject'
         ].join('\n')
       )
-    ], 'generator')
+    ], 'generator', 'skylist')
   }
 
   return (
