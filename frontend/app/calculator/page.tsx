@@ -51,8 +51,8 @@ const Calculator = () => {
     setResults(prev => ({ 
       ...prev, 
       fov: {
-        x: round(selected.camera?.resolution_x! * results.resolution!) || null, 
-        y: round(selected.camera?.resolution_y! * results.resolution!) || null 
+        x: round(selected.camera?.resolution_x! * results.resolution! / 3600) || null, 
+        y: round(selected.camera?.resolution_y! * results.resolution! / 3600) || null 
       }
     }))
   }, [selected.camera?.resolution_x, selected.camera?.resolution_y, results.resolution])
