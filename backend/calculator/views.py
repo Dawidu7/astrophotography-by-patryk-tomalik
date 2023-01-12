@@ -5,7 +5,7 @@ from .serializers import CameraSerializer, TelescopeSerializer, FlattReducSerial
 
 # Create your views here.
 class ListCreateCameras(ListCreateAPIView):
-    queryset = Camera.objects.all()
+    queryset = Camera.objects.all().order_by('name')
     serializer_class = CameraSerializer
 
 class DestroyCamera(DestroyAPIView):
@@ -13,7 +13,7 @@ class DestroyCamera(DestroyAPIView):
     serializer_class = CameraSerializer
     
 class ListCreateTelescopes(ListCreateAPIView):
-    queryset = Telescope.objects.all()
+    queryset = Telescope.objects.all().order_by('name')
     serializer_class = TelescopeSerializer
 
 class DestroyTelescope(DestroyAPIView):
@@ -21,7 +21,7 @@ class DestroyTelescope(DestroyAPIView):
     serializer_class = TelescopeSerializer
 
 class ListCreateFlattReducs(ListCreateAPIView):
-    queryset = FlattReduc.objects.all()
+    queryset = FlattReduc.objects.all().order_by('name')
     serializer_class = FlattReducSerializer
 
 class DestroyFlattReduc(DestroyAPIView):
