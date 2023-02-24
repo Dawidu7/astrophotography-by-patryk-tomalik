@@ -43,8 +43,14 @@ const EditForm = ({ image, onClose }: { image: Image, onClose?: () => void }) =>
 
   const submitEdit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault()
+    const submit = (e.currentTarget.querySelector('input[type="submit"]:focus') as HTMLInputElement).value
     
-    axios.put(`${process.env.BACKEND_URL}/image/${image.id}`, { values })
+    if(submit === 'delete') {
+      axios.delete(`${process.env.BACKEND_URL}/image/${image.id}`)
+    }
+    else {
+      axios.put(`${process.env.BACKEND_URL}/image/${image.id}`, { values })
+    }
   }
 
   return (
@@ -119,7 +125,10 @@ const EditForm = ({ image, onClose }: { image: Image, onClose?: () => void }) =>
           value={values.info} 
           onChange={e => setValues(prev => ({ ...prev, info: e.target.value }))} 
         />
-        <input type='submit' value='Submit' className='w-full' />
+        <div className="flex gap-x-2 justify-end">
+          <input type="submit" value="Delete" />
+          <input type='submit' value='Submit' />
+        </div>
       </form>
     </>
   )
