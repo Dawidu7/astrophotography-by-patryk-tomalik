@@ -58,6 +58,13 @@ const SearchSelect = ({ options, valueName, setValue, className }: SearchSelectP
         <button 
           type='button'
           className='py-0 w-full my-1.5'
+          onClick={() => { setOpen(false) }}
+        >
+          Custom
+        </button>
+        <button 
+          type='button'
+          className='py-0 w-full my-1.5'
           onClick={() => { setValue(null); setOpen(false) }}
         >
           Reset

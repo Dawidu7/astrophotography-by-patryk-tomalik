@@ -2,7 +2,7 @@
 
 import { use, useState } from 'react'
 
-import { AddModal, ConfirmModal, Modal, ImageForm } from '../../components'
+import { AddModal, ConfirmModal, Modal, ImageForm, EditForm } from '../../components'
 
 import { toTitle } from '../../utils'
 
@@ -58,6 +58,10 @@ const AdminPanel = () => {
   const [ deletedOption, setDeletedOption ] = useState<any | null>(null)
   const [ url, setUrl ] = useState('')
 
+  // Edit Modal
+  const [ editImageId, setEditImageId ] = useState<number | null>(null)
+  const editImage = data.images.images.find(({ id }: { id: number }) => id === editImageId)
+
   return (
     <>
       <div className='grid md:grid-cols-2 sm:w-3/4 mx-auto gap-8 p-4 pb-20'>
@@ -68,7 +72,7 @@ const AdminPanel = () => {
               {Object.entries(options).map(([ header, opt ]) => (
                 <div key={header}>
                   <h5 className='flex justify-between'>
-                    {toTitle(header)}
+                    <span className='text-light'>{toTitle(header)}</span>
                     <button 
                       className='p-0 pr-2 border-0' 
                       onClick={header !== 'images'
@@ -84,7 +88,10 @@ const AdminPanel = () => {
                       <li 
                         key={o.id}
                         className='hover:cursor-pointer hover:text-light'
-                        onClick={() => { setDeletedOption(o); setUrl(`${page}/${header.slice(0, -1)}/${o.id}`) }}
+                        onClick={toTitle(header) === 'Images'
+                          ? () => setEditImageId(o.id)
+                          : () => { setDeletedOption(o); setUrl(`${page}/${header.slice(0, -1)}/${o.id}`) }
+                        }
                       >
                         {o.name}
                       </li>
@@ -112,6 +119,11 @@ const AdminPanel = () => {
         onClose={() => setCreatedPath(null)}
         header={createdPath?.split('/').at(-1) || ''}
         url={createdPath?.replaceAll('_', '-') || ''}
+      />
+      <Modal
+        open={editImageId !== null}
+        onClose={() => setEditImageId(null)}
+        content={<EditForm onClose={() => setEditImageId(null)} image={editImage} />}
       />
     </>
   )

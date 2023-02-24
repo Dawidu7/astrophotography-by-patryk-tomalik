@@ -86,7 +86,7 @@ const Calculator = () => {
           <div className='flex max-[1023px]:flex-col gap-y-6 justify-between'>
             <Output label='Focal Length' value={selected.telescope?.focal_length && `${selected.telescope?.focal_length}mm`} />
             <Output label='Diameter' value={selected.telescope?.diameter && `${selected.telescope?.diameter}mm`} />
-            <Output label='Focal Ratio' value={selected.telescope?.focal_ratio && `f${selected.telescope?.focal_ratio}`} />
+            <Output label='Focal Ratio' value={selected.telescope?.focal_ratio && `f ${selected.telescope?.focal_ratio}`} />
           </div>
           <div className=''>
             <Output label='Times' value={selected.flattReduc?.times && `x${selected.flattReduc?.times}`} />
@@ -95,7 +95,7 @@ const Calculator = () => {
         <div className='flex justify-between mt-6'>
           <Output label='Focal (Length / Ratio)' value={
             selected.telescope?.focal_length && selected.flattReduc?.times && results.focalRatio &&
-            `${selected.telescope?.focal_length * selected.flattReduc?.times}mm / f${results.focalRatio}`
+            `${selected.telescope?.focal_length * selected.flattReduc?.times}mm / f ${results.focalRatio}`
           } />
           <Output label='Resolution' value={results.resolution} />
           <Output label='FOV' value={(results.fov.x && results.fov.y) && `${results.fov.x}x${results.fov.y}`} />
