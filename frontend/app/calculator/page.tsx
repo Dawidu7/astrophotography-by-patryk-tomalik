@@ -94,6 +94,7 @@ const Calculator = () => {
         </div>
         <div className='flex justify-between mt-6'>
           <Output label='Focal Ratio' value={results.focalRatio} />
+          <Output label='Focal Length' value={selected.telescope?.focal_length! * selected.flattReduc?.times!} />
           <Output label='Resolution' value={results.resolution} />
           <Output label='FOV' value={(results.fov.x && results.fov.y) && `${results.fov.x}x${results.fov.y}`} />
         </div>
