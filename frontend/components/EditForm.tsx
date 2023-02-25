@@ -45,7 +45,7 @@ const EditForm = ({ image, onClose }: { image: Image, onClose: () => void }) => 
     e.preventDefault()
     const submit = (e.currentTarget.querySelector('input[type="submit"]:focus') as HTMLInputElement).value
     
-    if(submit === 'delete') {
+    if(submit === 'Delete') {
       await axios.delete(`${process.env.BACKEND_URL}/images/image/${image.id}`)
     }
     else {
