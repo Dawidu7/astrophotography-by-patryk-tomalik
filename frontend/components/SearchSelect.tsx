@@ -12,10 +12,11 @@ interface SearchSelectProps {
   options: any[],
   valueName: string | null,
   setValue: (value: any) => void,
+  setModal: () => void,
   className?: string
 }
 
-const SearchSelect = ({ options, valueName, setValue, className }: SearchSelectProps) => {
+const SearchSelect = ({ options, valueName, setValue, setModal, className }: SearchSelectProps) => {
   const [ open, setOpen ] = useState(false)
   const [ inputValue, setInputValue ] = useState('')
   const dropdownRef = useRef<HTMLUListElement>(null)
@@ -58,7 +59,7 @@ const SearchSelect = ({ options, valueName, setValue, className }: SearchSelectP
         <button 
           type='button'
           className='py-0 w-full my-1.5'
-          onClick={() => { setOpen(false) }}
+          onClick={() => { setOpen(false); setModal() }}
         >
           Custom
         </button>

@@ -1,6 +1,7 @@
 'use client'
 
 import { use, useState } from 'react'
+import { useRouter } from 'next/router'
 
 import axios from'axios'
 
@@ -36,8 +37,9 @@ const getData = async () => await Promise.all([
 
 const queryData = getData()
 
-const EditForm = ({ image, onClose }: { image: Image, onClose?: () => void }) => {
+const EditForm = ({ image, onClose }: { image: Image, onClose: () => void }) => {
   const options = use(queryData)
+  const { reload } = useRouter()
 
   const [ values, setValues ] = useState(image)
 
@@ -46,11 +48,14 @@ const EditForm = ({ image, onClose }: { image: Image, onClose?: () => void }) =>
     const submit = (e.currentTarget.querySelector('input[type="submit"]:focus') as HTMLInputElement).value
     
     if(submit === 'delete') {
-      axios.delete(`${process.env.BACKEND_URL}/image/${image.id}`)
+      await axios.delete(`${process.env.BACKEND_URL}/images/image/${image.id}`)
     }
     else {
-      axios.put(`${process.env.BACKEND_URL}/image/${image.id}`, { values })
+      await axios.put(`${process.env.BACKEND_URL}/images/image/${image.id}`, { ...values })
     }
+
+    onClose()
+    reload()
   }
 
   return (
