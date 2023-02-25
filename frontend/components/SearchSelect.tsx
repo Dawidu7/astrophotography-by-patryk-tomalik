@@ -12,7 +12,7 @@ interface SearchSelectProps {
   options: any[],
   valueName: string | null,
   setValue: (value: any) => void,
-  setModal: () => void,
+  setModal?: () => void,
   className?: string
 }
 
@@ -59,7 +59,7 @@ const SearchSelect = ({ options, valueName, setValue, setModal, className }: Sea
         <button 
           type='button'
           className='py-0 w-full my-1.5'
-          onClick={() => { setOpen(false); setModal() }}
+          onClick={() => { setOpen(false); setModal!() }}
         >
           Custom
         </button>
