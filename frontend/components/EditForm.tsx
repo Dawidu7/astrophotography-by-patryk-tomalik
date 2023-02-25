@@ -39,7 +39,7 @@ const queryData = getData()
 
 const EditForm = ({ image, onClose }: { image: Image, onClose: () => void }) => {
   const options = use(queryData)
-  const { reload } = useRouter()
+  const router = useRouter()
 
   const [ values, setValues ] = useState(image)
 
@@ -55,7 +55,7 @@ const EditForm = ({ image, onClose }: { image: Image, onClose: () => void }) => 
     }
 
     onClose()
-    reload()
+    router.reload()
   }
 
   return (
