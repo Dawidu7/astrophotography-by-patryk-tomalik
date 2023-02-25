@@ -1,7 +1,6 @@
 'use client'
 
 import { use, useState } from 'react'
-import { useRouter } from 'next/router'
 
 import axios from'axios'
 
@@ -39,7 +38,6 @@ const queryData = getData()
 
 const EditForm = ({ image, onClose }: { image: Image, onClose: () => void }) => {
   const options = use(queryData)
-  const router = useRouter()
 
   const [ values, setValues ] = useState(image)
 
@@ -55,7 +53,6 @@ const EditForm = ({ image, onClose }: { image: Image, onClose: () => void }) => 
     }
 
     onClose()
-    router.reload()
   }
 
   return (
